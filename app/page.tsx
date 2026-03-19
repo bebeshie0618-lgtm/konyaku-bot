@@ -1,65 +1,154 @@
-import Image from "next/image";
+'use client';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-export default function Home() {
+export default function TopPage() {
+  const router = useRouter();
+  const [isOpening, setIsOpening] = useState(false);
+
+  const handleDoorClick = () => {
+    setIsOpening(true);
+    setTimeout(() => router.push('/login'), 900);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center overflow-hidden">
+
+      {/* ロゴ */}
+      <div className="mb-16 text-center">
+        <h1 className="text-xs font-black tracking-[0.4em] text-gray-900 uppercase">
+          Konyaku Bot
+        </h1>
+        <p className="text-[10px] text-gray-300 mt-2 tracking-[0.3em] uppercase">
+          AI Pocket Support
+        </p>
+      </div>
+
+      {/* どこでもドア */}
+      <div
+        onClick={handleDoorClick}
+        className="cursor-pointer"
+        style={{ perspective: '1200px' }}
+      >
+        <div
+          style={{
+            width: '180px',
+            height: '300px',
+            position: 'relative',
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.9s ease',
+            transform: isOpening ? 'rotateY(-110deg)' : 'rotateY(0deg)',
+            transformOrigin: 'left center',
+          }}
+        >
+          {/* ドア台座 */}
+          <div style={{
+            position: 'absolute',
+            bottom: '-18px',
+            left: '-18px',
+            right: '-18px',
+            height: '18px',
+            background: '#f0676f',
+            borderRadius: '0 0 10px 10px',
+          }} />
+          {/* ドア上部 */}
+          <div style={{
+            position: 'absolute',
+            top: '-16px',
+            left: '-10px',
+            right: '-10px',
+            height: '16px',
+            background: '#f0676f',
+            borderRadius: '10px 10px 0 0',
+          }} />
+          {/* ドア本体（前面） */}
+          <div style={{
+            width: '180px',
+            height: '300px',
+            background: 'linear-gradient(150deg, #f47c84 0%, #e8606a 60%, #d4555e 100%)',
+            borderRadius: '90px 90px 4px 4px',
+            position: 'absolute',
+            backfaceVisibility: 'hidden',
+            boxShadow: isOpening
+              ? 'none'
+              : '6px 12px 40px rgba(232,96,106,0.4), inset 2px 2px 10px rgba(255,255,255,0.15)',
+            transition: 'box-shadow 0.3s',
+          }}>
+            {/* 上部パネル */}
+            <div style={{
+              position: 'absolute',
+              top: '18px', left: '14px', right: '14px',
+              height: '100px',
+              border: '1.5px solid rgba(255,255,255,0.2)',
+              borderRadius: '70px 70px 4px 4px',
+            }} />
+            {/* 下部パネル */}
+            <div style={{
+              position: 'absolute',
+              top: '134px', left: '14px', right: '14px',
+              height: '130px',
+              border: '1.5px solid rgba(255,255,255,0.2)',
+              borderRadius: '4px',
+            }} />
+            {/* ノブ */}
+            <div style={{
+              position: 'absolute',
+              left: '22px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '18px',
+              height: '18px',
+              background: '#3a3a4a',
+              borderRadius: '50%',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
+            }} />
+          </div>
+
+          {/* ドア内側（開いた時に見える） */}
+          <div style={{
+            width: '180px',
+            height: '300px',
+            background: 'linear-gradient(180deg, #1a1a2e 0%, #0a0a1a 100%)',
+            borderRadius: '90px 90px 4px 4px',
+            position: 'absolute',
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <span style={{ color: 'white', fontSize: '2rem' }}>✦</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 光フラッシュ */}
+      {isOpening && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'white',
+            zIndex: 50,
+            animation: 'flash 0.9s forwards',
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      )}
+
+      <style>{`
+        @keyframes flash {
+          0% { opacity: 0; }
+          60% { opacity: 0; }
+          80% { opacity: 1; }
+          100% { opacity: 1; }
+        }
+      `}</style>
+
+      <p className={`mt-12 text-[10px] tracking-[0.4em] text-gray-300 uppercase transition-opacity duration-300 ${
+        isOpening ? 'opacity-0' : 'opacity-100'
+      }`}>
+        tap to enter
+      </p>
     </div>
   );
 }
