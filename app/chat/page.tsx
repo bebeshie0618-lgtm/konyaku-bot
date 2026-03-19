@@ -66,11 +66,9 @@ export default function ChatPage() {
       {/* ヘッダー */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 bg-white z-10">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-            <span className="text-white text-xs font-black">P</span>
-          </div>
+          <img src="/pocket-kun.png" alt="ポケットくん" className="w-8 h-8 rounded-full object-cover" />
           <div>
-            <p className="text-xs font-black tracking-widest">POCKET</p>
+            <p className="text-xs font-black tracking-widest">ポケットくん</p>
             <div className="flex items-center gap-1">
               <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
               <p className="text-[10px] text-gray-400">online</p>
@@ -90,9 +88,7 @@ export default function ChatPage() {
       {/* モード未選択 */}
       {!mode && (
         <div className="flex-1 flex flex-col items-center justify-center px-6">
-          <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mb-8">
-            <span className="text-white text-2xl font-black">P</span>
-          </div>
+          <img src="/pocket-kun.png" alt="ポケットくん" className="w-16 h-16 rounded-full object-cover mb-8" />
           <h2 className="text-sm font-black tracking-[0.2em] mb-2">こんにちは。</h2>
           <p className="text-xs text-gray-400 mb-10 tracking-wide text-center leading-relaxed">
             今日はどんなことをサポートしますか？
@@ -124,9 +120,7 @@ export default function ChatPage() {
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 {msg.role === 'assistant' && (
-                  <div className="w-7 h-7 bg-black rounded-full flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-white text-[10px] font-black">P</span>
-                  </div>
+                  <img src="/pocket-kun.png" alt="ポケットくん" className="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" />
                 )}
                 <div className="relative group max-w-[80%]">
                   <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
@@ -150,9 +144,7 @@ export default function ChatPage() {
 
             {loading && (
               <div className="flex gap-3">
-                <div className="w-7 h-7 bg-black rounded-full flex items-center justify-center shrink-0">
-                  <span className="text-white text-[10px] font-black">P</span>
-                </div>
+                <img src="/pocket-kun.png" alt="ポケットくん" className="w-7 h-7 rounded-full object-cover shrink-0" />
                 <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3">
                   <div className="flex gap-1">
                     {[0,120,240].map(d => (

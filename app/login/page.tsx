@@ -100,10 +100,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-xs">
         <div className="text-center mb-12">
-          <div className="w-14 h-14 bg-black rounded-full flex items-center justify-center mx-auto mb-5">
-            <span className="text-white text-xl font-black">P</span>
-          </div>
-          <h1 className="text-xs font-black tracking-[0.4em] uppercase">Konyaku Bot</h1>
+          <img src="/pocket-kun.png" alt="ポケットくん" className="w-14 h-14 rounded-full object-cover mx-auto mb-5" />
+          <h1 className="text-xs font-black tracking-[0.4em]">ポケットくん</h1>
           <p className="text-[10px] text-gray-400 mt-2 tracking-wider">
             AIポケットのアカウントでログイン
           </p>
