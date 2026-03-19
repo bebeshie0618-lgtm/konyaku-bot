@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
+import PocketIcon from '../components/PocketIcon';
 
 type Mode = null | 'ai-pocket' | 'fukugyou';
 interface Message { role: 'assistant' | 'user'; content: string; }
@@ -66,7 +67,7 @@ export default function ChatPage() {
       {/* ヘッダー */}
       <header className="border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 bg-white z-10">
         <div className="flex items-center gap-3">
-          <img src="/pocket-kun.png" alt="ポケットくん" className="w-8 h-8 rounded-full object-cover" />
+          <PocketIcon size={32} />
           <div>
             <p className="text-xs font-black tracking-widest">ポケットくん</p>
             <div className="flex items-center gap-1">
@@ -88,7 +89,7 @@ export default function ChatPage() {
       {/* モード未選択 */}
       {!mode && (
         <div className="flex-1 flex flex-col items-center justify-center px-6">
-          <img src="/pocket-kun.png" alt="ポケットくん" className="w-16 h-16 rounded-full object-cover mb-8" />
+          <div className="mb-8"><PocketIcon size={64} /></div>
           <h2 className="text-sm font-black tracking-[0.2em] mb-2">こんにちは。</h2>
           <p className="text-xs text-gray-400 mb-10 tracking-wide text-center leading-relaxed">
             今日はどんなことをサポートしますか？
@@ -120,7 +121,7 @@ export default function ChatPage() {
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 {msg.role === 'assistant' && (
-                  <img src="/pocket-kun.png" alt="ポケットくん" className="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" />
+                  <div className="mt-0.5"><PocketIcon size={28} /></div>
                 )}
                 <div className="relative group max-w-[80%]">
                   <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
@@ -144,7 +145,7 @@ export default function ChatPage() {
 
             {loading && (
               <div className="flex gap-3">
-                <img src="/pocket-kun.png" alt="ポケットくん" className="w-7 h-7 rounded-full object-cover shrink-0" />
+                <PocketIcon size={28} />
                 <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3">
                   <div className="flex gap-1">
                     {[0,120,240].map(d => (

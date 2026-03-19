@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
+import PocketIcon from '../components/PocketIcon';
 
 // ① コンポーネント外でクライアントを初期化（レンダリングごとの再生成を防止）
 const supabase = createBrowserClient(
@@ -100,7 +101,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-xs">
         <div className="text-center mb-12">
-          <img src="/pocket-kun.png" alt="ポケットくん" className="w-14 h-14 rounded-full object-cover mx-auto mb-5" />
+          <div className="flex justify-center mb-5"><PocketIcon size={56} /></div>
           <h1 className="text-xs font-black tracking-[0.4em]">ポケットくん</h1>
           <p className="text-[10px] text-gray-400 mt-2 tracking-wider">
             AIポケットのアカウントでログイン
