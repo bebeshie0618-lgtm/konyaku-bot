@@ -1,5 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createBrowserClient } from '@supabase/ssr';
 import PocketIcon from '../components/PocketIcon';
 
 type Mode = null | 'ai-pocket' | 'fukugyou';
@@ -13,6 +15,16 @@ export default function ChatPage() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [copied, setCopied] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    await supabase.auth.signOut();
+    router.push('/login');
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -76,14 +88,22 @@ export default function ChatPage() {
             </div>
           </div>
         </div>
-        {mode && (
+        <div className="flex items-center gap-3">
+          {mode && (
+            <button
+              onClick={() => { setMode(null); setMessages([]); setSuggestions([]); }}
+              className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase"
+            >
+              ← back
+            </button>
+          )}
           <button
-            onClick={() => { setMode(null); setMessages([]); setSuggestions([]); }}
-            className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase"
+            onClick={handleLogout}
+            className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase border border-gray-200 hover:border-black px-3 py-1.5 rounded-full"
           >
-            ← back
+            logout
           </button>
-        )}
+        </div>
       </header>
 
       {/* モード未選択 */}
