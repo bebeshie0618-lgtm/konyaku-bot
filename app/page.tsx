@@ -93,7 +93,7 @@ export default function TopPage() {
             {/* ノブ */}
             <div style={{
               position: 'absolute',
-              left: '22px',
+              right: '22px',
               top: '50%',
               transform: 'translateY(-50%)',
               width: '18px',
