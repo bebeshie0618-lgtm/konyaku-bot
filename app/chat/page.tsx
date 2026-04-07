@@ -129,12 +129,6 @@ export default function ChatPage() {
               ← back
             </button>
           )}
-          <Link
-            href="/examples"
-            className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase border border-gray-200 hover:border-black px-3 py-1.5 rounded-full"
-          >
-            作品例
-          </Link>
           <button
             onClick={handleLogout}
             className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase border border-gray-200 hover:border-black px-3 py-1.5 rounded-full"
