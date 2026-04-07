@@ -143,12 +143,24 @@ export default function ExamplesPage() {
                   生成例
                 </p>
                 {ex.isImage ? (
-                  <div className="border border-dashed border-gray-300 rounded-xl py-8 px-4 bg-white text-center">
-                    <p className="text-2xl mb-2">🖼️</p>
-                    <p className="text-[11px] text-gray-500 leading-relaxed whitespace-pre-wrap">
-                      {ex.imagePlaceholder}
-                    </p>
-                  </div>
+                  ex.imageUrl ? (
+                    <div className="rounded-xl overflow-hidden bg-white border border-gray-200">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={ex.imageUrl}
+                        alt={ex.imageAlt ?? '生成例画像'}
+                        className="w-full h-auto block object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : (
+                    <div className="border border-dashed border-gray-300 rounded-xl py-8 px-4 bg-white text-center">
+                      <p className="text-2xl mb-2">🖼️</p>
+                      <p className="text-[11px] text-gray-500 leading-relaxed whitespace-pre-wrap">
+                        {ex.imagePlaceholder}
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <p className="text-[13px] text-gray-700 leading-relaxed whitespace-pre-wrap">
                     {ex.result}

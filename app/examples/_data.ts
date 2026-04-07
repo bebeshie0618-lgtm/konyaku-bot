@@ -6,6 +6,8 @@ export type Example = {
   result: string
   isImage?: boolean
   imagePlaceholder?: string
+  imageUrl?: string
+  imageAlt?: string
 }
 
 export type TabKey =
@@ -508,31 +510,22 @@ AIポケットがあなたの代わりに働いてくれます。
       instruction: '副業系SNS投稿用のインパクトある背景画像を作って',
       result: '',
       isImage: true,
-      imagePlaceholder:
-`AIポケットで生成したサンプル画像
-（例：黒×ゴールドのグラデーション、
-中央に大きく数字 "10" の輝くフォント、
-副業のアイコン散りばめ）`,
+      imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600',
+      imageAlt: '副業系SNS投稿のインパクト背景イメージ',
     },
     {
       instruction: 'プレゼント特典のイメージ画像をゴールド系で作って',
       result: '',
       isImage: true,
-      imagePlaceholder:
-`AIポケットで生成したサンプル画像
-（例：ゴールドのリボンで包まれたギフトボックス、
-背景は深い紺色に光の粒子、
-高級感のある質感）`,
+      imageUrl: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600',
+      imageAlt: 'ゴールド系プレゼント特典イメージ',
     },
     {
       instruction: '女性向けライフスタイル系のおしゃれなSNS投稿画像を作って',
       result: '',
       isImage: true,
-      imagePlaceholder:
-`AIポケットで生成したサンプル画像
-（例：ベージュ×淡いピンクの背景、
-コーヒーカップとノートとペン、
-柔らかい朝の光、ミニマルで大人っぽい雰囲気）`,
+      imageUrl: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600',
+      imageAlt: '女性向けライフスタイルSNSイメージ',
     },
   ],
 }

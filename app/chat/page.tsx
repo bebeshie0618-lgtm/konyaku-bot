@@ -146,7 +146,7 @@ export default function ChatPage() {
 
       {/* モード未選択 */}
       {!mode && (
-        <div className="flex-1 flex flex-col items-center justify-center px-6">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
           <div className="mb-8"><PocketIcon size={64} /></div>
           <h2 className="text-sm font-black tracking-[0.2em] mb-2">こんにちは。</h2>
           <p className="text-xs text-gray-400 mb-10 tracking-wide text-center leading-relaxed">
@@ -168,6 +168,20 @@ export default function ChatPage() {
                 <p className="text-[10px] text-gray-400">{item.sub}</p>
               </button>
             ))}
+
+            {/* 作品例ギャラリーへの導線 */}
+            <Link
+              href="/examples"
+              className="w-full block border border-gray-100 rounded-2xl py-5 px-5 text-left hover:border-black transition-all group bg-gradient-to-br from-gray-50 to-white"
+            >
+              <p className="text-xs font-black tracking-wider mb-1 group-hover:text-black flex items-center gap-1.5">
+                <span>📂</span>
+                <span>作品例ギャラリーを見る</span>
+              </p>
+              <p className="text-[10px] text-gray-400">
+                実際の指示文と生成例を確認
+              </p>
+            </Link>
           </div>
         </div>
       )}
