@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { createBrowserClient } from '@supabase/ssr';
 import PocketIcon from '../components/PocketIcon';
 
@@ -16,6 +17,8 @@ export default function ChatPage() {
   const [copied, setCopied] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const autoSentRef = useRef(false);
+  const sendMessageRef = useRef<(text: string, currentMode?: Mode) => void>(() => {});
 
   const handleLogout = async () => {
     const supabase = createBrowserClient(
@@ -49,9 +52,10 @@ export default function ChatPage() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = async (text: string, overrideMode?: Mode) => {
     if (!text.trim() || loading) return;
     setSuggestions([]);
+    const useMode = overrideMode ?? mode;
     const newMessages: Message[] = [...messages, { role: 'user', content: text }];
     setMessages(newMessages);
     setInput('');
@@ -60,7 +64,7 @@ export default function ChatPage() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages, mode }),
+        body: JSON.stringify({ messages: newMessages, mode: useMode }),
       });
       const data = await res.json();
       setMessages(prev => [...prev, { role: 'assistant', content: data.content }]);
@@ -73,6 +77,34 @@ export default function ChatPage() {
       setLoading(false);
     }
   };
+
+  // sendMessageを最新参照として保持（useEffectから呼び出すため）
+  sendMessageRef.current = sendMessage;
+
+  // ?q=... を読み取って自動送信（作品例ページからの遷移用）
+  useEffect(() => {
+    if (autoSentRef.current) return;
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q && q.trim()) {
+      autoSentRef.current = true;
+      // URLからクエリを消す
+      const url = new URL(window.location.href);
+      url.searchParams.delete('q');
+      window.history.replaceState({}, '', url.toString());
+
+      // 副業コンテンツ作成モードを自動選択（作品例は副業コンテンツ作成系のため）
+      setMode('fukugyou');
+      setMessages([{
+        role: 'assistant',
+        content: '副業コンテンツの作成をサポートします。\nどんなコンテンツを作りたいか教えてください！',
+      }]);
+
+      // 少し遅延させて確実に送信
+      setTimeout(() => sendMessageRef.current(q, 'fukugyou'), 100);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -97,6 +129,12 @@ export default function ChatPage() {
               ← back
             </button>
           )}
+          <Link
+            href="/examples"
+            className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase border border-gray-200 hover:border-black px-3 py-1.5 rounded-full"
+          >
+            作品例
+          </Link>
           <button
             onClick={handleLogout}
             className="text-[10px] tracking-widest text-gray-300 hover:text-black transition-colors uppercase border border-gray-200 hover:border-black px-3 py-1.5 rounded-full"
